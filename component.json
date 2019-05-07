@@ -1,0 +1,136 @@
+{
+    "title": "Adyen Payout Service",
+    "description": "A set of API endpoints that allow you to store payout details, confirm, or decline a payout.\n\nFor more information, refer to [Third-party payouts](https://docs.adyen.com/developers/features/third-party-payouts).",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/adyen.com/PayoutService/30/openapi.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://pal-test.adyen.com/pal/servlet/Payout/v30",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "post_confirmThirdParty": {
+            "main": "./lib/actions/post_confirmThirdParty.js",
+            "title": "Confirms a payout.",
+            "description": "Confirms a previously submitted payout.\n\nTo cancel a payout, use the `/declineThirdParty` endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_confirmThirdParty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_declineThirdParty": {
+            "main": "./lib/actions/post_declineThirdParty.js",
+            "title": "Cancels a payout.",
+            "description": "Cancels a previously submitted payout.\n\nTo confirm and send a payout, use the `/confirmThirdParty` endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_declineThirdParty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_payout": {
+            "main": "./lib/actions/post_payout.js",
+            "title": "Pay out directly.",
+            "description": "With this call, you can pay out to your customers, and funds will be made available within 30 minutes on the cardholder's bank account (this is dependent on whether the issuer supports this functionality). Instant card payouts are only supported for Visa and Mastercard cards.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_payout.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_storeDetail": {
+            "main": "./lib/actions/post_storeDetail.js",
+            "title": "Stores payout details.",
+            "description": "Stores payment details under the `PAYOUT` recurring contract. These payment details can be used later to submit a payout via the `/submitThirdParty` call.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_storeDetail.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_storeDetailAndSubmitThirdParty": {
+            "main": "./lib/actions/post_storeDetailAndSubmitThirdParty.js",
+            "title": "Stores details and submits a payout.",
+            "description": "Submits a payout and stores its details for subsequent payouts.\n\nThe submitted payout must be confirmed or declined either by a reviewer or via `/confirmThirdParty` or `/declineThirdParty` calls.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_storeDetailAndSubmitThirdParty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_submitThirdParty": {
+            "main": "./lib/actions/post_submitThirdParty.js",
+            "title": "Submits a payout.",
+            "description": "Submits a payout using the previously stored payment details. To store payment details, use the `/storeDetail` API call.\n\nThe submitted payout must be confirmed or declined either by a reviewer or via `/confirmThirdParty` or `/declineThirdParty` calls.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_submitThirdParty.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

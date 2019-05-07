@@ -1,0 +1,15 @@
+{
+    "name": "adyen-com-payout-service-connector",
+    "version": "30.0.0",
+    "description": "A set of API endpoints that allow you to store payout details, confirm, or decline a payout.\n\nFor more information, refer to [Third-party payouts](https://docs.adyen.com/developers/features/third-party-payouts).",
+    "main": "component.json",
+    "dependencies": {
+        "elasticio-node": "0.0.9",
+        "elasticio-sailor-nodejs": "^2.2.1",
+        "swagger-client": "^3.8.22"
+    },
+    "author": {
+        "name": "Deutsche Telekom AG"
+    },
+    "license": "Apache-2.0"
+}

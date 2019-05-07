@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "additionalData": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "This field contains additional data, which may be required for a particular payout request.",
+                    "type": "object"
+                },
+                "merchantAccount": {
+                    "description": "The merchant account identifier, with which you want to process the transaction.",
+                    "type": "string"
+                },
+                "originalReference": {
+                    "description": "The PSP reference received in the `/submitThirdParty` response.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "merchantAccount",
+                "originalReference"
+            ],
+            "type": "object"
+        }
+    }
+}
